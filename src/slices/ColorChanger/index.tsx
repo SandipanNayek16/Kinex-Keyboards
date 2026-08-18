@@ -57,15 +57,6 @@ export const KEYCAP_TEXTURES = [
     knobColor: "#c06080",
     bgColor: "#dfbad1",
   },
-  { id: "var1", name: "Classic", path: "/keycap_uv-1.png", knobColor: "#555", bgColor: "#ccc" },
-  { id: "var2", name: "Midnight", path: "/keycap_uv-2.png", knobColor: "#222", bgColor: "#444" },
-  { id: "var3", name: "Sunrise", path: "/keycap_uv-3.png", knobColor: "#e67e22", bgColor: "#f39c12" },
-  { id: "var4", name: "Mint", path: "/keycap_uv-4.png", knobColor: "#1abc9c", bgColor: "#a3e4d7" },
-  { id: "var5", name: "Lavender", path: "/keycap_uv-5.png", knobColor: "#9b59b6", bgColor: "#d2b4de" },
-  { id: "var6", name: "Crimson", path: "/keycap_uv-6.png", knobColor: "#c0392b", bgColor: "#f5b7b1" },
-  { id: "var7", name: "Ocean", path: "/keycap_uv-7.png", knobColor: "#2980b9", bgColor: "#aed6f1" },
-  { id: "var8", name: "Forest", path: "/keycap_uv-8.png", knobColor: "#27ae60", bgColor: "#abebc6" },
-  { id: "var9", name: "Slate", path: "/keycap_uv-9.png", knobColor: "#34495e", bgColor: "#aeb6bf" },
 ] as const;
 
 type KeycapTexture = (typeof KEYCAP_TEXTURES)[number];
