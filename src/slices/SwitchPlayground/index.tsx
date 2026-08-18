@@ -79,10 +79,10 @@ const SwitchCard = ({ color }: SwitchCardProps) => {
 
   // Background treatment per switch type
   const bgAccent = {
-    blue: { ring: "#00d4ff", bg: "#00d4ff12", dark: "#020d12" },
-    red: { ring: "#ff4444", bg: "#ff444412", dark: "#120202" },
-    brown: { ring: "#c87941", bg: "#c8794112", dark: "#110b02" },
-    black: { ring: "#8a8a9a", bg: "#8a8a9a10", dark: "#080808" },
+    blue: { ring: "#00d4ff", light: "#1a4659", dark: "#061821", bg: "#00d4ff20" },
+    red: { ring: "#ff4444", light: "#591a1a", dark: "#210606", bg: "#ff444420" },
+    brown: { ring: "#c87941", light: "#4a3120", dark: "#1f140c", bg: "#c8794120" },
+    black: { ring: "#8a8a9a", light: "#333333", dark: "#141414", bg: "#8a8a9a20" },
   }[colorName];
 
   const handleSound = () => {
@@ -107,10 +107,10 @@ const SwitchCard = ({ color }: SwitchCardProps) => {
 
   return (
     <div
-      className="group relative overflow-hidden select-none"
+      className="group relative overflow-hidden select-none motion-safe:transition-colors motion-safe:duration-500"
       style={{
-        background: bgAccent.dark,
-        border: `1px solid ${bgAccent.ring}20`,
+        background: `radial-gradient(circle at 50% 50%, ${bgAccent.light} 0%, ${bgAccent.dark} 100%)`,
+        border: `1px solid ${bgAccent.ring}30`,
       }}
     >
       {/* Top meta bar */}
