@@ -28,7 +28,6 @@ const NAV_LINKS = [
 ] as const;
 
 export function Navbar() {
-  const buttonRef = useRef<HTMLButtonElement>(null);
   const state = useState(false);
   const [open, setOpen] = state;
 

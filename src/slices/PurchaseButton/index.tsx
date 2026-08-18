@@ -38,6 +38,7 @@ const PurchaseButton: FC<PurchaseButtonProps> = ({ slice }) => {
     setErrorMessage(null);
 
     // Attempt to resolve dynamic product UID from CMS, fallback to legacy ID
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const productUid = (slice.primary as any).product?.uid || "vapor75";
     const result = await checkout(productUid);
     setIsPressed(false);

@@ -1,5 +1,6 @@
 export function LogoMark({ className, ...props }: React.HTMLAttributes<HTMLImageElement>) {
   return (
+    // eslint-disable-next-line @next/next/no-img-element
     <img 
       src="/logo.png" 
       alt="Kinex Mascot" 
