@@ -20,31 +20,42 @@ export const KEYCAP_TEXTURES = [
     name: "Goodwell",
     path: "/goodwell_uv.png",
     knobColor: "#2A2A2E",
+    bgColor: "#e8e8ed",
   },
   {
     id: "dreamboard",
     name: "Dreamboard",
     path: "/dreamboard_uv.png",
     knobColor: "#b06070",
+    bgColor: "#f3e1e4",
   },
   {
     id: "cherrynavy",
     name: "Cherry Navy",
     path: "/cherrynavy_uv.png",
     knobColor: "#4050a0",
+    bgColor: "#e1e6f3",
   },
-  { id: "kick", name: "Kick", path: "/kick_uv.png", knobColor: "#cc2020" },
+  { 
+    id: "kick", 
+    name: "Kick", 
+    path: "/kick_uv.png", 
+    knobColor: "#cc2020",
+    bgColor: "#f3e1e1",
+  },
   {
     id: "oldschool",
     name: "Old School",
     path: "/oldschool_uv.png",
     knobColor: "#8a7060",
+    bgColor: "#f3ede1",
   },
   {
     id: "candykeys",
     name: "Candy Keys",
     path: "/candykeys_uv.png",
     knobColor: "#c06080",
+    bgColor: "#f3e1eb",
   },
 ] as const;
 
@@ -78,16 +89,20 @@ const ColorChanger: FC<ColorChangerProps> = ({ slice }) => {
     setIsAnimating(false);
   }, []);
 
+  const activeTexture =
+    KEYCAP_TEXTURES.find((t) => t.id === selectedTextureId) || KEYCAP_TEXTURES[0];
+
   return (
     <section
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
       id="keycap-changer"
-      className="relative flex flex-col overflow-hidden bg-[#0a0a0d] text-white"
+      className="relative flex flex-col overflow-hidden text-[#060608] motion-safe:transition-colors motion-safe:duration-700"
+      style={{ backgroundColor: activeTexture.bgColor }}
     >
       {/* Background repeating text */}
       <svg
-        className="pointer-events-none absolute top-0 left-0 h-auto w-full opacity-[0.04]"
+        className="pointer-events-none absolute top-0 left-0 h-auto w-full opacity-10"
         viewBox="0 0 75 100"
         aria-hidden="true"
       >
@@ -97,7 +112,7 @@ const ColorChanger: FC<ColorChangerProps> = ({ slice }) => {
           dominantBaseline="middle"
           x="50%"
           y="50%"
-          className="font-black-slanted fill-[#00d4ff] uppercase"
+          className="font-black-slanted fill-black uppercase"
         >
           {Array.from({ length: 20 }, (_, i) => (
             <tspan key={i} x={`${(i + 1) * 10}%`} dy={i === 0 ? -50 : 6}>
@@ -121,22 +136,22 @@ const ColorChanger: FC<ColorChangerProps> = ({ slice }) => {
       </div>
 
       {/* Controls */}
-      <Bounded className="relative shrink-0 border-t border-white/[0.06]">
+      <Bounded className="relative shrink-0 border-t border-black/5">
         <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-12">
           {/* Text */}
           <div className="shrink-0 lg:max-w-xs">
-            <p className="label-mono mb-3 text-[#00d4ff]">Customise</p>
+            <p className="label-mono mb-3 text-[#0090b0]">Customise</p>
             <h2 className="font-black-slanted mb-4 text-4xl uppercase leading-[0.9] md:text-5xl">
               <PrismicText field={slice.primary.heading} />
             </h2>
-            <div className="text-sm leading-relaxed text-[#8a8a9a]">
+            <div className="text-sm leading-relaxed text-black/70">
               <PrismicRichText field={slice.primary.description} />
             </div>
           </div>
 
           {/* Texture selector */}
           <div className="grow">
-            <p className="label-mono mb-4 text-[#555560]">Select Colourway</p>
+            <p className="label-mono mb-4 text-black/50">Select Colourway</p>
             <ul
               className="grid grid-cols-3 gap-2 sm:grid-cols-6 lg:grid-cols-3 xl:grid-cols-6"
               role="radiogroup"
@@ -153,10 +168,10 @@ const ColorChanger: FC<ColorChangerProps> = ({ slice }) => {
                       disabled={isAnimating && !isSelected}
                       title={texture.name}
                       className={clsx(
-                        "relative flex w-full flex-col items-center gap-2 border p-3 focus:ring-2 focus:ring-[#00d4ff] focus:outline-none motion-safe:transition-all motion-safe:duration-200",
+                        "relative flex w-full flex-col items-center gap-2 border p-3 focus:ring-2 focus:ring-[#00b8e0] focus:outline-none motion-safe:transition-all motion-safe:duration-200",
                         isSelected
-                          ? "border-[#00d4ff] bg-[#00d4ff]/10"
-                          : "cursor-pointer border-white/10 bg-white/[0.03] hover:border-white/20 hover:bg-white/[0.06]",
+                          ? "border-[#00b8e0] bg-[#00b8e0]/10"
+                          : "cursor-pointer border-black/10 bg-black/[0.03] hover:border-black/20 hover:bg-black/[0.06]",
                         isAnimating && !isSelected && "cursor-not-allowed opacity-40",
                       )}
                     >
@@ -166,7 +181,7 @@ const ColorChanger: FC<ColorChangerProps> = ({ slice }) => {
                       )}
 
                       {/* Texture preview */}
-                      <div className="overflow-hidden border border-white/10">
+                      <div className="overflow-hidden border border-black/10">
                         <Image
                           src={texture.path}
                           alt={`${texture.name} keycap colourway preview`}
@@ -180,7 +195,7 @@ const ColorChanger: FC<ColorChangerProps> = ({ slice }) => {
                       <span
                         className={clsx(
                           "label-mono text-center text-[10px]",
-                          isSelected ? "text-[#00d4ff]" : "text-[#555560]",
+                          isSelected ? "text-[#0090b0]" : "text-black/50",
                         )}
                       >
                         {texture.name}
