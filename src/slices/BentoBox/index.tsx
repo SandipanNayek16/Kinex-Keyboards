@@ -85,12 +85,7 @@ function BentoBoxItem({ item }: BentoBoxItemProps) {
       {/* Gradient overlay */}
       <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-[#0a0a0d] via-[#0a0a0d]/60 to-transparent" />
 
-      {/* Corner label */}
-      <div className="absolute top-4 right-4">
-        <span className="label-mono bg-[#00d4ff]/10 px-2 py-1 text-[#00d4ff] backdrop-blur-sm">
-          {item.size?.toUpperCase() ?? ""}
-        </span>
-      </div>
+
 
       {/* Text content */}
       <div className="absolute inset-x-0 bottom-0 p-5 md:p-6">
