@@ -170,9 +170,9 @@ const ColorChanger: FC<ColorChangerProps> = ({ slice }) => {
                       className={clsx(
                         "relative flex w-full flex-col items-center gap-2 border p-3 focus:ring-2 focus:ring-[#00b8e0] focus:outline-none motion-safe:transition-all motion-safe:duration-200",
                         isSelected
-                          ? "border-[#00b8e0] bg-[#00b8e0]/10"
-                          : "cursor-pointer border-black/10 bg-black/[0.03] hover:border-black/20 hover:bg-black/[0.06]",
-                        isAnimating && !isSelected && "cursor-not-allowed opacity-40",
+                          ? "border-[#00b8e0] bg-white shadow-sm"
+                          : "cursor-pointer border-black/10 bg-white/80 hover:border-black/20 hover:bg-white",
+                        isAnimating && !isSelected && "cursor-not-allowed opacity-60",
                       )}
                     >
                       {/* Active indicator — not color alone */}
