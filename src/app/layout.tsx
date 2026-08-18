@@ -13,7 +13,7 @@ const robotoFlex = Roboto_Flex({
   axes: ["wdth", "slnt", "opsz"],
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://Kinex-keyboards.vercel.app";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://kinex-keyboards.vercel.app";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

@@ -108,7 +108,15 @@ export function Scene() {
         overflowLockedRef.current = true;
       }
 
-      const tl = gsap.timeline({ ease: "power2.inOut" });
+      const tl = gsap.timeline({ 
+        ease: "power2.inOut",
+        onInterrupt: () => {
+          if (overflowLockedRef.current) {
+            document.body.style.overflow = "";
+            overflowLockedRef.current = false;
+          }
+        }
+      });
 
       tl.to(keyboard.position, { x: 0, y: -0.5, z: 0.5, duration: 2 })
         .to(

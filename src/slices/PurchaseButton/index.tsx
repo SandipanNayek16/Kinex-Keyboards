@@ -37,7 +37,9 @@ const PurchaseButton: FC<PurchaseButtonProps> = ({ slice }) => {
     setIsPressed(true);
     setErrorMessage(null);
 
-    const result = await checkout();
+    // Attempt to resolve dynamic product UID from CMS, fallback to legacy ID
+    const productUid = (slice.primary as any).product?.uid || "vapor75";
+    const result = await checkout(productUid);
     setIsPressed(false);
 
     if (!result.success) {

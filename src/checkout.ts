@@ -7,10 +7,11 @@ export type CheckoutResult =
  * Returns a structured result instead of silently failing.
  */
 export async function checkout(
-  uid = "vapor75",
+  uid: string,
+  currency: string = "usd",
 ): Promise<CheckoutResult> {
   try {
-    const res = await fetch(`/api/checkout/${uid}`, { method: "POST" });
+    const res = await fetch(`/api/checkout/${uid}?currency=${currency}`, { method: "POST" });
 
     if (!res.ok) {
       const body = await res.json().catch(() => ({}));

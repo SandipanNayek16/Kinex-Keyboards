@@ -17,6 +17,10 @@ export async function POST(
   request: NextRequest,
   { params }: { params: Promise<{ uid: string }> },
 ) {
+  // Parse dynamic currency from URL if provided
+  const url = new URL(request.url);
+  const currency = url.searchParams.get("currency") || "usd";
+
   // Validate Stripe secret key exists
   const stripeKey = process.env.STRIPE_SECRET_KEY;
   if (!stripeKey) {
@@ -86,7 +90,7 @@ export async function POST(
       line_items: [
         {
           price_data: {
-            currency: "usd",
+            currency,
             product_data: {
               name,
               ...(description ? { description } : {}),

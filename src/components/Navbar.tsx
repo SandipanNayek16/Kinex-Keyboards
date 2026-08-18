@@ -15,7 +15,6 @@ import {
 } from "@radix-ui/react-dialog";
 import { Logo } from "./Logo";
 import clsx from "clsx";
-import { checkout } from "@/checkout";
 
 const DialogContext = createContext<
   [open: boolean, setOpen: (open: boolean) => void]
@@ -35,8 +34,6 @@ export function Navbar() {
 
   // Scroll-state for blur/glass effect
   const [scrolled, setScrolled] = useState(false);
-  const [checkoutError, setCheckoutError] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -45,26 +42,6 @@ export function Navbar() {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  // Clear error after 4 seconds
-  useEffect(() => {
-    if (!checkoutError) return;
-    const t = setTimeout(() => setCheckoutError(null), 4000);
-    return () => clearTimeout(t);
-  }, [checkoutError]);
-
-  async function handleCheckout() {
-    if (isLoading) return;
-    setIsLoading(true);
-    setCheckoutError(null);
-
-    const result = await checkout();
-    setIsLoading(false);
-
-    if (!result.success) {
-      setCheckoutError(result.error);
-    }
-  }
 
   return (
     <header
@@ -99,43 +76,22 @@ export function Navbar() {
 
       {/* Right side controls */}
       <div className="flex items-center gap-3">
-        {/* Checkout error toast */}
-        {checkoutError && (
-          <span
-            role="alert"
-            className="hidden text-sm text-red-400 motion-safe:animate-pulse md:inline"
-          >
-            {checkoutError}
-          </span>
-        )}
-
         {/* Buy CTA */}
-        <button
-          ref={buttonRef}
+        <a
+          href="#buy-button"
           id="navbar-buy-btn"
-          onClick={handleCheckout}
-          disabled={isLoading}
           aria-label="Buy Mecha 16 keyboard"
           className={clsx(
-            "group relative flex h-10 cursor-pointer items-center justify-center overflow-hidden px-5 py-2 font-semibold text-white focus:ring-2 focus:ring-[#00d4ff] focus:ring-offset-2 focus:ring-offset-black focus:outline-none disabled:cursor-not-allowed disabled:opacity-60 motion-safe:transition-all motion-safe:duration-300",
+            "group relative flex h-10 cursor-pointer items-center justify-center overflow-hidden px-5 py-2 font-semibold text-white focus:ring-2 focus:ring-[#00d4ff] focus:ring-offset-2 focus:ring-offset-black focus:outline-none motion-safe:transition-all motion-safe:duration-300",
             "border border-[#00d4ff]/40 bg-[#00d4ff]/10 hover:bg-[#00d4ff]/20 hover:border-[#00d4ff]/70",
           )}
           style={{ clipPath: "polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%)" }}
         >
           <span className="font-bold-slanted relative z-10 flex items-center gap-1.5 text-sm uppercase tracking-wider text-[#00d4ff]">
-            {isLoading ? (
-              <span className="flex items-center gap-2">
-                <span className="inline-block h-3 w-3 animate-spin rounded-full border border-[#00d4ff] border-t-transparent" />
-                Wait…
-              </span>
-            ) : (
-              <>
-                Buy
-                <LuChevronRight className="size-4 group-hover:translate-x-0.5 motion-safe:transition-transform" />
-              </>
-            )}
+            Buy
+            <LuChevronRight className="size-4 group-hover:translate-x-0.5 motion-safe:transition-transform" />
           </span>
-        </button>
+        </a>
 
         {/* Mobile menu trigger */}
         <Dialog open={open} onOpenChange={setOpen}>
@@ -189,24 +145,15 @@ export function Navbar() {
 
               {/* Mobile buy button */}
               <div className="mt-8 border-t border-white/[0.06] pt-6">
-                <button
-                  onClick={async () => {
-                    setOpen(false);
-                    await handleCheckout();
-                  }}
-                  disabled={isLoading}
-                  className="font-bold-slanted flex w-full cursor-pointer items-center justify-center gap-2 border border-[#00d4ff]/40 bg-[#00d4ff]/10 py-3 text-base uppercase tracking-wider text-[#00d4ff] hover:bg-[#00d4ff]/20 disabled:opacity-60 motion-safe:transition"
+                <a
+                  href="#buy-button"
+                  onClick={() => setOpen(false)}
+                  className="font-bold-slanted flex w-full cursor-pointer items-center justify-center gap-2 border border-[#00d4ff]/40 bg-[#00d4ff]/10 py-3 text-base uppercase tracking-wider text-[#00d4ff] hover:bg-[#00d4ff]/20 motion-safe:transition"
                   style={{ clipPath: "polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%)" }}
                 >
-                  {isLoading ? "Processing…" : "Buy Mecha 16"}
+                  Buy Mecha 16
                   <LuChevronRight className="size-4" />
-                </button>
-
-                {checkoutError && (
-                  <p role="alert" className="mt-3 text-center text-sm text-red-400">
-                    {checkoutError}
-                  </p>
-                )}
+                </a>
               </div>
             </DialogContent>
           </DialogPortal>
