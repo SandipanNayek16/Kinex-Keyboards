@@ -28,18 +28,8 @@ export async function generateMetadata(): Promise<Metadata> {
     description:
       replaceBrandName(page.data.meta_description) ||
       "The Mecha 16 — a premium 75% gasket-mount mechanical keyboard.",
-    openGraph: {
-      images: imageUrl
-        ? [
-            {
-              url: imageUrl,
-              width: 1200,
-              height: 630,
-              alt: "Kinex Keyboards Mecha 16",
-            },
-          ]
-        : [],
-    },
+    // Removed openGraph image here to allow the dynamically generated opengraph-image.tsx to be used instead
+    // of the old Prismic image which contains the "Nimbus Vapor 75" branding.
     alternates: {
       canonical: "/",
     },
