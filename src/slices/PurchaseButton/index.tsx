@@ -23,6 +23,13 @@ gsap.registerPlugin(useGSAP);
 export type PurchaseButtonProps =
   SliceComponentProps<Content.PurchaseButtonSlice>;
 
+const CURRENCIES = [
+  { code: "usd", symbol: "$" },
+  { code: "eur", symbol: "€" },
+  { code: "inr", symbol: "₹" },
+  { code: "jpy", symbol: "¥" },
+];
+
 /**
  * Component for "PurchaseButton" Slices.
  */
@@ -31,6 +38,7 @@ const PurchaseButton: FC<PurchaseButtonProps> = ({ slice }) => {
   const textRef = useRef<HTMLSpanElement>(null);
   const [isPressed, setIsPressed] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [currency, setCurrency] = useState("usd");
 
   const handlePurchaseClick = async () => {
     if (isPressed) return;
@@ -40,7 +48,7 @@ const PurchaseButton: FC<PurchaseButtonProps> = ({ slice }) => {
     // Attempt to resolve dynamic product UID from CMS, fallback to legacy ID
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const productUid = (slice.primary as any).product?.uid || "vapor75";
-    const result = await checkout(productUid);
+    const result = await checkout(productUid, currency);
     setIsPressed(false);
 
     if (!result.success) {
@@ -108,10 +116,28 @@ const PurchaseButton: FC<PurchaseButtonProps> = ({ slice }) => {
         {/* Section heading */}
         <h2
           id="buy-button"
-          className="font-bold-slanted mb-10 scroll-mt-20 text-[clamp(2.5rem,8vw,7rem)] leading-[0.9] text-[#0a0a0d] uppercase"
+          className="font-bold-slanted mb-6 scroll-mt-20 text-[clamp(2.5rem,8vw,7rem)] leading-[0.9] text-[#0a0a0d] uppercase"
         >
           <PrismicText field={slice.primary.heading} />
         </h2>
+
+        {/* Currency Selector */}
+        <div className="mb-8 flex justify-center gap-3">
+          {CURRENCIES.map((c) => (
+            <button
+              key={c.code}
+              onClick={() => setCurrency(c.code)}
+              className={clsx(
+                "cursor-pointer rounded-full border px-4 py-1.5 text-sm font-bold uppercase tracking-wider motion-safe:transition-all",
+                currency === c.code
+                  ? "border-[#0090b0] bg-[#00b8e0]/10 text-[#0090b0] shadow-sm"
+                  : "border-black/10 bg-black/5 text-black/50 hover:border-black/30 hover:bg-black/10 hover:text-black",
+              )}
+            >
+              {c.symbol} {c.code}
+            </button>
+          ))}
+        </div>
 
         {/* Main CTA button */}
         <button

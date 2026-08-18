@@ -86,6 +86,18 @@ export async function POST(
       );
     }
 
+    // Determine unit amount based on currency
+    let unit_amount = price;
+    if (currency === "eur") {
+      unit_amount = Math.round(price * 0.92);
+    } else if (currency === "inr") {
+      unit_amount = Math.round(price * 83);
+    } else if (currency === "jpy") {
+      // JPY is zero-decimal. price is in USD cents (e.g. 25000 = $250.00).
+      // $250 USD * 150 JPY/USD = 37500 JPY. So price * 1.5 = 37500.
+      unit_amount = Math.round(price * 1.5);
+    }
+
     const sessionParams: Stripe.Checkout.SessionCreateParams = {
       line_items: [
         {
@@ -96,7 +108,7 @@ export async function POST(
               ...(description ? { description } : {}),
               ...(image ? { images: [image] } : {}),
             },
-            unit_amount: price,
+            unit_amount,
           },
           quantity: 1,
         },
