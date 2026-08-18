@@ -8,7 +8,10 @@ import { components } from "@/slices";
 
 function replaceBrandName(obj: any): any {
   if (typeof obj === "string") {
-    return obj.replace(/vapor\s*75/gi, "Mecha 16");
+    return obj
+      .replace(/vapor\s*75/gi, "Mecha 16")
+      .replace(/Nimbus\s*Keyboards/gi, "Kinex Keyboards")
+      .replace(/Nimbus/gi, "Kinex");
   }
   if (Array.isArray(obj)) {
     return obj.map(replaceBrandName);
@@ -39,9 +42,9 @@ export async function generateMetadata(): Promise<Metadata> {
   const imageUrl = asImageSrc(page.data.meta_image) ?? undefined;
 
   return {
-    title: page.data.meta_title || "Kinex Keyboards — Mecha 16",
+    title: replaceBrandName(page.data.meta_title) || "Mecha 16 — Kinex Keyboards",
     description:
-      page.data.meta_description ||
+      replaceBrandName(page.data.meta_description) ||
       "The Mecha 16 — a premium 75% gasket-mount mechanical keyboard.",
     openGraph: {
       images: imageUrl
