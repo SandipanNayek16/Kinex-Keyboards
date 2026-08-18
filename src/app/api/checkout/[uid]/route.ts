@@ -63,7 +63,11 @@ export async function POST(
     const name = replaceBrandName(rawName);
     const price = product.data.price as number | undefined;
     const image = product.data.image?.url as string | undefined;
-    const description = replaceBrandName(asText(product.data.description));
+    const fullDescription = replaceBrandName(asText(product.data.description));
+    const firstSentenceMatch = fullDescription.match(/^[^.]*\./);
+    const description = firstSentenceMatch
+      ? firstSentenceMatch[0].trim()
+      : "A premium 75% mechanical keyboard built for developers.";
 
     // Validate price is a positive integer (Stripe requires cents)
     if (
