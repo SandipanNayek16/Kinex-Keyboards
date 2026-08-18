@@ -1,6 +1,9 @@
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function replaceBrandName(obj: any): any {
   if (typeof obj === "string") {
+    if (obj.startsWith("http://") || obj.startsWith("https://")) {
+      return obj;
+    }
     return obj
       .replace(/vapor\s*75/gi, "Mecha 16")
       .replace(/Nimbus\s*Keyboards/gi, "Kinex Keyboards")
@@ -13,7 +16,11 @@ export function replaceBrandName(obj: any): any {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const newObj: any = {};
     for (const key in obj) {
-      newObj[key] = replaceBrandName(obj[key]);
+      if (key === "url" || key === "uid" || key === "id" || key === "type") {
+        newObj[key] = obj[key];
+      } else {
+        newObj[key] = replaceBrandName(obj[key]);
+      }
     }
     return newObj;
   }
