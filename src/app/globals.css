@@ -1,0 +1,223 @@
+@import "tailwindcss";
+
+/* ─── Nimbus Brand Design System ─────────────────────────────────────────── */
+
+@theme inline {
+  /* Typography — Roboto Flex variable axes */
+  --font-sans: var(--font-roboto-flex), "Arial", "Helvetica Neue", sans-serif;
+
+  /* Display — condensed, slanted, maximum weight: hero headings */
+  --font-black-slanted: var(--font-roboto-flex);
+  --font-black-slanted--font-variation-settings:
+    "wdth" var(--wdth, 75), "slnt" var(--slnt, -10), "opsz" var(--opsz, 144),
+    "wght" var(--wght, 1000);
+
+  /* Subheadings & buttons — bold + condensed */
+  --font-bold-slanted: var(--font-roboto-flex);
+  --font-bold-slanted--font-variation-settings:
+    "wdth" var(--wdth, 74), "slnt" var(--slnt, -10), "opsz" var(--opsz, 100),
+    "wght" var(--wght, 600);
+
+  /* Mono — technical labels */
+  --font-mono: "Roboto Mono", "Courier New", monospace;
+
+  /* ── Brand Colours ── */
+  --color-graphite-950: #060608;
+  --color-graphite-900: #0a0a0d;
+  --color-graphite-800: #111116;
+  --color-graphite-700: #18181f;
+  --color-graphite-600: #222228;
+  --color-graphite-500: #2e2e38;
+
+  --color-metal-400: #8a8a9a;
+  --color-metal-300: #aaabb8;
+  --color-metal-200: #d0d0dc;
+  --color-metal-100: #ebebf2;
+
+  --color-cyan-500: #00d4ff;
+  --color-cyan-400: #33dcff;
+  --color-cyan-300: #66e7ff;
+  --color-cyan-600: #00b8e0;
+  --color-cyan-700: #0090b0;
+
+  --color-warm-white: #f5f5f7;
+  --color-off-white: #e8e8ed;
+
+  --color-error: #ff4444;
+  --color-success: #00d47e;
+}
+
+/* ─── Global Reset & Base ─────────────────────────────────────────────────── */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Prevent horizontal overflow at any breakpoint */
+  overflow-x: hidden;
+}
+
+/* Mobile safe-area support */
+body {
+  min-height: 100dvh;
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+/* Ensure 3D canvases don't cause overflow */
+canvas {
+  display: block;
+}
+
+/* ─── Utility Classes ─────────────────────────────────────────────────────── */
+
+/* Technical mono label — small uppercase monospaced metadata */
+.label-mono {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem; /* 11px */
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-cyan-500);
+}
+
+/* Glass surface — translucent dark panel */
+.glass-surface {
+  background: rgba(10, 10, 13, 0.72);
+  backdrop-filter: blur(12px) saturate(140%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.glass-surface-light {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px) saturate(140%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+/* Precision grid background */
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(0, 212, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 212, 255, 0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Hairline border */
+.hairline {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Metallic surface gradient */
+.surface-metallic {
+  background: linear-gradient(
+    135deg,
+    var(--color-graphite-700) 0%,
+    var(--color-graphite-600) 50%,
+    var(--color-graphite-700) 100%
+  );
+}
+
+/* Cyan glow */
+.glow-cyan {
+  box-shadow:
+    0 0 20px rgba(0, 212, 255, 0.15),
+    0 0 60px rgba(0, 212, 255, 0.05);
+}
+
+/* ─── Hero Background ─────────────────────────────────────────────────────── */
+
+.hero-gradient-dark {
+  background: linear-gradient(
+    to bottom,
+    var(--color-graphite-950),
+    var(--color-graphite-900),
+    #0a0f1a,
+    #091525
+  );
+}
+
+/* Used by GSAP scrollTrigger transition */
+.blue-gradient-bg {
+  background: var(--color-graphite-950);
+}
+
+/* ─── Marquee Animation ───────────────────────────────────────────────────── */
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-25%);
+  }
+}
+
+.animate-marquee {
+  animation-name: marquee;
+  animation-duration: 40s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee {
+    animation: none;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* ─── Focus Styles ────────────────────────────────────────────────────────── */
+
+:focus-visible {
+  outline: 2px solid var(--color-cyan-500);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ─── Scrollbar ───────────────────────────────────────────────────────────── */
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-graphite-900);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-graphite-500);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-metal-400);
+}
+
+/* ─── Selection ───────────────────────────────────────────────────────────── */
+
+::selection {
+  background: rgba(0, 212, 255, 0.25);
+  color: var(--color-warm-white);
+}
+
+/* ─── Active-state indicator for keycap selector ─────────────────────────── */
+.keycap-active-indicator {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-cyan-500);
+  box-shadow: 0 0 6px var(--color-cyan-500);
+}
