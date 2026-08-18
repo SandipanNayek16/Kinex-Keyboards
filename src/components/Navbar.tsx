@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, useEffect, createContext, useContext } from "react";
+import { useState, useEffect, createContext, useContext } from "react";
 import Link from "next/link";
 import { LuChevronRight, LuMenu, LuX } from "react-icons/lu";
 import {
@@ -15,6 +15,7 @@ import {
 } from "@radix-ui/react-dialog";
 import { Logo } from "./Logo";
 import clsx from "clsx";
+import SpecularButton from "./SpecularButton";
 
 const DialogContext = createContext<
   [open: boolean, setOpen: (open: boolean) => void]
@@ -61,36 +62,62 @@ export function Navbar() {
       </Link>
 
       {/* Desktop nav links */}
-      <nav className="hidden items-center gap-6 md:flex" aria-label="Site navigation">
-        {NAV_LINKS.map((link) => (
-          <a
+      <nav className="hidden items-center gap-3 md:flex" aria-label="Site navigation">
+        {NAV_LINKS.slice(0, 3).map((link) => (
+          <SpecularButton
             key={link.href}
             href={link.href}
-            className="label-mono text-[#aaabb8] hover:text-[#00d4ff] motion-safe:transition-colors"
+            size="sm"
+            radius={18}
+            tint="#ffffff"
+            tintOpacity={0}
+            blur={0}
+            textColor="#aaabb8"
+            lineColor="#00d4ff"
+            baseColor="#525252"
+            intensity={1.2}
+            shineSize={12}
+            shineFade={40}
+            thickness={1}
+            speed={0.35}
+            followMouse
+            proximity={250}
+            autoAnimate={false}
+            className="label-mono !bg-transparent !shadow-none"
           >
             {link.title}
-          </a>
+          </SpecularButton>
         ))}
       </nav>
 
       {/* Right side controls */}
       <div className="flex items-center gap-3">
         {/* Buy CTA */}
-        <a
+        <SpecularButton
           href="#buy-button"
-          id="navbar-buy-btn"
-          aria-label="Buy Mecha 16 keyboard"
-          className={clsx(
-            "group relative flex h-10 cursor-pointer items-center justify-center overflow-hidden px-5 py-2 font-semibold text-white focus:ring-2 focus:ring-[#00d4ff] focus:ring-offset-2 focus:ring-offset-black focus:outline-none motion-safe:transition-all motion-safe:duration-300",
-            "border border-[#00d4ff]/40 bg-[#00d4ff]/10 hover:bg-[#00d4ff]/20 hover:border-[#00d4ff]/70",
-          )}
-          style={{ clipPath: "polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%)" }}
+          size="md"
+          radius={18}
+          tint="#00d4ff"
+          tintOpacity={0.1}
+          blur={0}
+          textColor="#00d4ff"
+          lineColor="#ffffff"
+          baseColor="#0090b0"
+          intensity={1}
+          shineSize={10}
+          shineFade={40}
+          thickness={1}
+          speed={0.35}
+          followMouse
+          proximity={250}
+          autoAnimate={false}
+          className="font-bold-slanted uppercase tracking-wider !border !border-[#00d4ff]/40"
         >
-          <span className="font-bold-slanted relative z-10 flex items-center gap-1.5 text-sm uppercase tracking-wider text-[#00d4ff]">
+          <span className="flex items-center gap-1.5">
             Buy
-            <LuChevronRight className="size-4 group-hover:translate-x-0.5 motion-safe:transition-transform" />
+            <LuChevronRight className="size-4" />
           </span>
-        </a>
+        </SpecularButton>
 
         {/* Mobile menu trigger */}
         <Dialog open={open} onOpenChange={setOpen}>
