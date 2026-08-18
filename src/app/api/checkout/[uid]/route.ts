@@ -2,6 +2,7 @@ import { createClient } from "@/prismicio";
 import { asText } from "@prismicio/client";
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
+import { replaceBrandName } from "@/utils/text";
 
 /**
  * POST /api/checkout/[uid]
@@ -58,10 +59,11 @@ export async function POST(
       );
     }
 
-    const name = (product.data.name as string) || "Kinex Keyboard";
+    const rawName = (product.data.name as string) || "Kinex Keyboard";
+    const name = replaceBrandName(rawName);
     const price = product.data.price as number | undefined;
     const image = product.data.image?.url as string | undefined;
-    const description = asText(product.data.description);
+    const description = replaceBrandName(asText(product.data.description));
 
     // Validate price is a positive integer (Stripe requires cents)
     if (

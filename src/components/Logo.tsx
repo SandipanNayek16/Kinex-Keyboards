@@ -1,9 +1,13 @@
+import Image from "next/image";
+
 export function Logo({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
   return (
     <div className={`flex items-center gap-2 ${className || ""}`} {...props}>
-      <img 
+      <Image 
         src="/logo.png" 
         alt="Kinex Mascot" 
+        width={32}
+        height={32}
         className="h-full w-auto object-contain scale-[1.7]"
         style={{ filter: "drop-shadow(0px 2px 4px rgba(0,0,0,0.1))" }}
       />
