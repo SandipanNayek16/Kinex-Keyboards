@@ -48,9 +48,6 @@ export function Footer() {
           <p className="label-mono text-[#2e2e38]">
             © {new Date().getFullYear()} Kinex Keyboards — All rights reserved
           </p>
-          <p className="label-mono text-[#2e2e38]">
-            Designed & Built by Sandipan Nayek
-          </p>
           <div className="flex items-center gap-1">
             <span className="label-mono text-[#2e2e38]">Built for</span>
             <span className="label-mono text-[#00d4ff]">precision</span>
