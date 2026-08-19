@@ -18,11 +18,11 @@ export function Footer() {
           {/* Brand */}
           <div className="flex flex-col gap-4">
             <Link
-            href="/"
-            aria-label="Kinex Keyboards — home"
-          >
-            <Logo className="h-7 w-auto opacity-80" />
-          </Link>
+              href="/"
+              aria-label="Kinex Keyboards — home"
+            >
+              <Logo className="h-7 w-auto opacity-80" />
+            </Link>
             <p className="label-mono text-[#2e2e38]">
               Precision. Modularity. Tactility.
             </p>
@@ -47,6 +47,9 @@ export function Footer() {
         <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
           <p className="label-mono text-[#2e2e38]">
             © {new Date().getFullYear()} Kinex Keyboards — All rights reserved
+          </p>
+          <p className="label-mono text-[#2e2e38]">
+            Designed & Built by Sandipan Nayek
           </p>
           <div className="flex items-center gap-1">
             <span className="label-mono text-[#2e2e38]">Built for</span>
